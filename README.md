@@ -1,6 +1,7 @@
 # ⚡ Multi-Source Financial Reconciliation Engine
 ### *High-Throughput 3-Way Tri-Party Reconciliation Engine + Google Gemini AI Forensic Copilot*
 
+[![Netlify Status](https://img.shields.io/badge/Live_Demo-reconcile--ai--razorpay.netlify.app-00C7B7.svg?logo=netlify&logoColor=white)](https://reconcile-ai-razorpay.netlify.app/)
 [![FastAPI](https://img.shields.io/badge/Backend-FastAPI-009688.svg?logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com)
 [![React](https://img.shields.io/badge/Frontend-React_18_%2B_Vite-61DAFB.svg?logo=react&logoColor=black)](https://reactjs.org)
 [![Gemini AI](https://img.shields.io/badge/AI-Google_Gemini-8E75B2.svg?logo=google-gemini&logoColor=white)](https://ai.google.dev)
@@ -13,8 +14,14 @@ The engine unites a high-speed **4-Signal deterministic scoring algorithm** with
 
 ---
 
+> 🌐 **Try it Live**: To test the platform with your own custom CSV datasets or instant 500+ synthetic benchmark data, visit:  
+> **👉 [https://reconcile-ai-razorpay.netlify.app/](https://reconcile-ai-razorpay.netlify.app/)**
+
+---
+
 ## 📑 Table of Contents
 - [🎯 Architecture Overview](#-architecture-overview)
+- [🌐 Live Deployment](#-live-deployment)
 - [📸 Platform Glimpses](#-platform-glimpses)
 - [🌟 Key Platform Capabilities](#-key-platform-capabilities)
 - [🛠 Tech Stack & Dependencies](#-tech-stack--dependencies)
@@ -43,6 +50,13 @@ The reconciliation pipeline operates on a deterministic 6-phase architecture, en
 4. **Candidate Space Indexing**: Hash lookups, amount tolerance bands ($\pm5\%$), and entity name indexing.
 5. **Deterministic 4-Signal Scoring**: Evaluates candidate pairs across Reference, Amount, Name, and Date proximity signals (composite 0–100 score).
 6. **3-Way Consistency Classification**: Assigns definitive reconciliation statuses and surfaces discrepancies for auditor review.
+
+---
+
+## 🌐 Live Deployment & Interactive Demo
+
+> 🚀 **Live Demo**: To try out the system with your own custom CSV data or synthetic benchmark data, visit:  
+> **👉 [https://reconcile-ai-razorpay.netlify.app/](https://reconcile-ai-razorpay.netlify.app/)**
 
 ---
 
