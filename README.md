@@ -10,11 +10,11 @@
 
 A high-performance, enterprise-ready **3-Way Financial Reconciliation Platform** engineered to ingest, normalize, and reconcile high-volume transaction feeds across three distinct financial streams: **Internal Invoices**, **Payment Gateway Transactions**, and **Bank Settlements**.
 
-The engine unites a high-speed **4-Signal deterministic scoring algorithm** with an interactive **Google Gemini AI Forensic Copilot** to detect root causes of discrepancies (e.g., standard 2.0% MDR + 18% GST deductions, settlement delays, unlinked bank deposits) and enable multi-turn auditor Q&A in real time.
+The platform combines a high-speed **4-Signal deterministic scoring engine** with an interactive **Google Gemini AI Forensic Copilot**. High-confidence transactions are automatically reconciled, while ambiguous cases are surfaced for human review. The AI Investigator assists reviewers by investigating discrepancies, explaining possible causes, and providing evidence-based recommendations.
 
 ---
 
-> 🌐 **Try it Live**: To test the platform with your own custom CSV datasets or instant 500+ synthetic benchmark data, visit:  
+> 🌐 **Try It Live**: Test the platform with custom CSV datasets or generate synthetic benchmark data directly from the interface:  
 > **👉 [https://reconcile-ai-razorpay.netlify.app/](https://reconcile-ai-razorpay.netlify.app/)**
 
 ---
@@ -22,11 +22,13 @@ The engine unites a high-speed **4-Signal deterministic scoring algorithm** with
 ## 📑 Table of Contents
 - [🎯 Architecture Overview](#-architecture-overview)
 - [🌐 Live Deployment](#-live-deployment)
+- [📈 Verified Benchmark](#-verified-benchmark)
 - [📸 Platform Glimpses](#-platform-glimpses)
 - [🌟 Key Platform Capabilities](#-key-platform-capabilities)
+- [🧠 Design Philosophy](#-design-philosophy)
 - [🛠 Tech Stack & Dependencies](#-tech-stack--dependencies)
 - [📁 Project Directory Structure](#-project-directory-structure)
-- [🚀 Quick Start Guide (How to Run)](#-quick-start-guide-how-to-run)
+- [🚀 Quick Start Guide](#-quick-start-guide)
   - [1. Backend Setup (FastAPI)](#1-backend-setup-fastapi)
   - [2. Frontend Setup (React + Vite)](#2-frontend-setup-react--vite)
 - [🔐 Environment Configuration](#-environment-configuration)
@@ -39,49 +41,69 @@ The engine unites a high-speed **4-Signal deterministic scoring algorithm** with
 
 ## 🎯 Architecture Overview
 
-The reconciliation pipeline operates on a deterministic 6-phase architecture, ensuring microsecond execution per transaction while upholding mathematical rigor across all 3 data streams.
+The reconciliation pipeline is designed for high throughput while maintaining deterministic and explainable matching across all three financial data streams.
 
 ![Architecture Overview](images/architecture%20overview.png)
 
 ### The 6-Phase Pipeline Lifecycle:
-1. **Ingestion & Validation**: Schema integrity audit, encoding check, and quarantine of invalid records.
-2. **Normalization Engine**: Strips legal suffixes (`Pvt Ltd`, `LLC`, `Inc`), standardizes alphanumeric references (`REF-001` → `ref001`), extracts numeric currency amounts, and parses multi-format dates.
-3. **Data Quality & Quarantine**: Isolates duplicate reference clusters and detects collisions.
-4. **Candidate Space Indexing**: Hash lookups, amount tolerance bands ($\pm5\%$), and entity name indexing.
-5. **Deterministic 4-Signal Scoring**: Evaluates candidate pairs across Reference, Amount, Name, and Date proximity signals (composite 0–100 score).
+1. **Ingestion & Validation**: Schema integrity checks, encoding validation, and quarantine of invalid records.
+2. **Normalization Engine**: Standardizes customer names, alphanumeric references, amounts, and dates across heterogeneous source formats.
+3. **Data Quality & Quarantine**: Detects duplicate references, missing fields, invalid records, and data collisions.
+4. **Candidate Space Indexing**: Uses hash lookups, amount tolerance bands ($\pm5\%$), and entity name indexing to eliminate unnecessary $O(N^2)$ comparisons.
+5. **Deterministic 4-Signal Scoring**: Evaluates candidate matches across Reference, Amount, Customer Name, and Date Proximity signals using a transparent 0 to 100 score.
 6. **3-Way Consistency Classification**: Assigns definitive reconciliation statuses and surfaces discrepancies for auditor review.
 
 ---
 
-## 🌐 Live Deployment & Interactive Demo
+## 🌐 Live Deployment
 
-> 🚀 **Live Demo**: To try out the system with your own custom CSV data or synthetic benchmark data, visit:  
-> **👉 [https://reconcile-ai-razorpay.netlify.app/](https://reconcile-ai-razorpay.netlify.app/)**
+> 🚀 **Live Demo**: **[https://reconcile-ai-razorpay.netlify.app/](https://reconcile-ai-razorpay.netlify.app/)**  
+> The deployed platform supports custom CSV uploads, interactive schema remapping, synthetic benchmark generation, reconciliation telemetry, detailed audit views, and AI-assisted investigation.
+
+---
+
+## 📈 Verified Benchmark
+
+The reconciliation engine was evaluated against a reproducible synthetic dataset with known ground truth labels.
+
+| Metric | Result |
+| :--- | :---: |
+| **Verified Test Cases** | **715** |
+| **Accuracy** | **99.9%** |
+| **Precision** | **100.0%** |
+| **Recall** | **99.8%** |
+| **F1 Score** | **99.91%** |
+| **False Positive Matches** | **0** |
+| **Processing Time** | **3.89 sec** |
+| **Throughput** | **~184 records/sec** |
+
+* The benchmark uses a fixed random seed and controlled anomalies to make results reproducible and objectively measurable.
+* The synthetic generator introduces realistic reconciliation scenarios such as amount mismatches, MDR fee deductions, missing payments, missing bank transactions, and duplicate records.
 
 ---
 
 ## 📸 Platform Glimpses
 
 ### 1. Unified Dashboard, Real-Time Telemetry & Financial KPIs
-*Real-time pipeline telemetry visualization, financial summary cards, and one-click benchmark execution.*
+*Real-time pipeline telemetry, financial summary cards, reconciliation statistics, and one-click benchmark execution.*
 ![Unified Dashboard](images/1.png)
 
 ---
 
 ### 2. Tri-Party Discrepancy Matrix & Filterable Reconciliation Table
-*Filterable transaction matrix with instant search, status badges, confidence scores, and multi-stream IDs.*
+*Filterable transaction matrix with search, status indicators, confidence scores, and multi-stream transaction IDs.*
 ![Reconciliation Results Table](images/2.png)
 
 ---
 
 ### 3. Detailed Tri-Party Record Audit & 4-Signal Score Breakdown
-*Side-by-side comparison across Invoice, Payment, and Bank streams with weighted signal breakdown bars.*
+*Side-by-side comparison across Invoice, Payment, and Bank streams with transparent signal-level scoring.*
 ![Tri-Party Record Audit](images/3.png)
 
 ---
 
 ### 4. Gemini AI Forensic Copilot & Interactive Auditor Chat
-*Instant AI root-cause diagnosis (detecting MDR interchange, GST, or float delay) with interactive auditor chat.*
+*AI-assisted investigation of discrepancies with interactive follow-up questions and evidence-based reasoning.*
 ![Gemini AI Forensic Copilot](images/4.png)
 
 ---
@@ -89,28 +111,60 @@ The reconciliation pipeline operates on a deterministic 6-phase architecture, en
 ## 🌟 Key Platform Capabilities
 
 ### ⚡ 1. 3-Way Tri-Party Consistency Engine
-Simultaneously cross-references internal **Invoices** against **Payment Gateway records** and **Bank Settlement feeds** to ensure end-to-end financial integrity.
+Cross-references **Invoices**, **Payment Gateway Records**, and **Bank Settlement Feeds** simultaneously to establish end-to-end financial consistency.
 
 ### 🎯 2. Deterministic 4-Signal Scoring Engine
-Evaluates candidate matches based on a transparent, weighted 100-point scoring algorithm:
-- **Reference Match (40 pts)**: Exact normalized reference string alignment.
-- **Amount Proximity (30 pts)**: Precision tolerance and fee variance matching.
-- **Customer Entity Name (20 pts)**: Fuzzy string ratio with legal suffix normalization.
-- **Date Proximity & Settlement Float (10 pts)**: Calendar float and business day processing lag.
+Evaluates candidate matches using a transparent, weighted 100-point scoring algorithm:
+
+| Signal | Weight | Evaluation Logic |
+| :--- | :---: | :--- |
+| **Reference Match** | **40 pts** | Exact normalized alphanumeric reference match |
+| **Amount Match** | **30 pts** | Exact match ($\pm₹0.01$), small variance ($\le 1\%$), or tolerance band ($\le 5\%$) |
+| **Customer Entity Name** | **20 pts** | Fuzzy entity similarity after legal suffix normalization |
+| **Date Proximity** | **10 pts** | Proximity based on transaction timestamp and settlement float lag |
 
 ### 🛡️ 3. Ambiguity Margin Guardrail
-Protects against false positives: if the top candidate score is $\ge 70$ but the difference between the 1st and 2nd highest candidate is $<10$ points, the engine flags the record as **`AMBIGUOUS_MATCH`** for human auditor verification.
+Protects against false positive matches:
+- If the top candidate has a sufficiently high score ($\ge 70$) but the difference between the top candidate and the second best candidate is below the safety margin ($< 10$ points), the system flags the transaction as **`AMBIGUOUS_MATCH`** instead of forcing an automatic reconciliation.
+- **High-confidence transactions are automatically reconciled. Ambiguous cases are routed for human review.**
 
 ### 🤖 4. Google Gemini AI Forensic Copilot
-- **Root-Cause Investigation**: Identifies exact causes of discrepancies (e.g., standard 2.0% MDR + 18% GST = 2.36% deduction).
-- **Interactive Multi-Turn Chat**: Ask follow-up questions, request vendor inquiry drafts, or verify bank credit timelines.
-- **Graceful Error Handling**: Detects missing or invalid API keys and provides clear setup guidance right within the UI.
+The AI layer follows an **"AI only where needed"** approach:
+- Investigates ambiguous or unresolved financial cases.
+- Compares relevant financial records across all 3 streams.
+- Explains possible causes of discrepancies (e.g., standard 2.0% MDR + 18% GST fee deductions).
+- Helps reviewers understand settlement differences and bank float delays.
+- Supports interactive multi-turn auditor Q&A.
+- Provides recommended evidence-based next actions.
+- **Keeps the final financial decision with the human reviewer.**
 
-### 📊 5. Built-in Synthetic Benchmark Generator
-Generate 500+ realistic multi-stream records with ground truth labels on demand to measure **Accuracy**, **Precision**, **Recall**, **F1 Score**, and **Throughput** in real time.
+> *The AI acts as an investigation and decision support layer, not the source of truth for financial reconciliation.*
 
-### 🔄 6. Client-Side Schema Validator & Interactive Column Mapping Wizard
-Upload any custom CSV with non-standard column headers (e.g. `Bill No` instead of `invoice_id`, `Client` instead of `customer`, `UTR` instead of `transaction_id`). The UI auto-detects aliases, warns of missing required columns, and opens an interactive **Column Mapping Wizard** with live 3-row data preview and on-the-fly client-side normalization.
+### 📊 5. Built-In Synthetic Benchmark Generator
+Generate realistic multi-stream financial records with known ground truth and controlled anomalies to measure:
+- Accuracy, Precision, Recall, F1 Score
+- False Positive Rate ($0\%$)
+- Throughput and Processing Latency
+
+### 🔄 6. Client-Side Schema Validator & Column Mapping Wizard
+Supports custom CSV datasets with arbitrary, non-standard column names:
+- `Bill No` / `Doc_Number` → `invoice_id`
+- `Client` / `Billing_Party` → `customer`
+- `Gross_Amount` / `Total` → `amount`
+- `UTR` / `Bank_Ref` → `transaction_id`
+
+The interface automatically detects aliases, validates required fields, provides an interactive 2-tab mapping wizard with a live 5-row data preview, and transforms files in-memory before backend ingestion.
+
+---
+
+## 🧠 Design Philosophy
+
+The system follows a simple principle:
+> **"Automate what can be proven. Investigate what cannot. Keep humans in control."**
+
+1. **Deterministic Speed**: The reconciliation engine establishes high-confidence matches using transparent, mathematically sound financial signals.
+2. **AI Where It Matters**: AI is introduced only when it provides additional value—particularly for ambiguous or complex exceptions that require forensic explanation.
+3. **Explainability & Trust**: Reduces unnecessary LLM overhead, eliminates hallucination risks in matching, and keeps financial decisions firmly under human auditor control.
 
 ---
 
@@ -128,7 +182,7 @@ Upload any custom CSV with non-standard column headers (e.g. `Bill No` instead o
 - **Framework**: [React 18](https://react.dev/)
 - **Build Tooling**: [Vite](https://vitejs.dev/)
 - **Iconography**: [Lucide React](https://lucide.dev/)
-- **Styling Architecture**: Pure CSS Custom Design System (Glassmorphism, Dark/Light palettes, responsive grids)
+- **Styling Architecture**: Custom CSS Design System (Glassmorphism, telemetry indicators, responsive cards)
 
 ---
 
@@ -168,6 +222,7 @@ multi-source-reconsilation-razorpay-hack/
 ├── frontend/                   # React 18 + Vite Frontend Application
 │   ├── src/
 │   │   ├── components/
+│   │   │   ├── ColumnMappingModal.jsx # 2-tab interactive column mapping wizard
 │   │   │   ├── HeroSection.jsx     # Header & summary metrics
 │   │   │   ├── MetricsGrid.jsx     # Financial KPIs & benchmark metrics
 │   │   │   ├── Navbar.jsx          # Top navigation bar
@@ -177,7 +232,8 @@ multi-source-reconsilation-razorpay-hack/
 │   │   │   ├── UnderTheHood.jsx    # System architecture & scoring explainer
 │   │   │   └── UploadReconcile.jsx  # 3-file drag-and-drop CSV uploader
 │   │   ├── utils/
-│   │   │   └── api.js              # Fetch API client wrapper
+│   │   │   ├── api.js              # Fetch API client wrapper
+│   │   │   └── csvMapper.js        # Client-side schema validator & transformer
 │   │   ├── App.jsx                 # Root application component
 │   │   ├── index.css               # Design system, CSS variables & animations
 │   │   └── main.jsx                # DOM entry point
@@ -186,6 +242,10 @@ multi-source-reconsilation-razorpay-hack/
 │   ├── package.json            # Node.js dependencies & scripts
 │   ├── package-lock.json       # Lockfile
 │   └── vite.config.js          # Vite configuration
+├── custom_test_datasets/       # Enterprise test datasets with custom headers
+│   ├── corporate_bank_statement.csv
+│   ├── erp_invoices_sap_export.csv
+│   └── gateway_payments_export.csv
 ├── images/                     # Platform screenshots & architecture diagrams
 │   ├── 1.png
 │   ├── 2.png
@@ -198,46 +258,37 @@ multi-source-reconsilation-razorpay-hack/
 
 ---
 
-## 🚀 Quick Start Guide (How to Run)
+## 🚀 Quick Start Guide
 
 ### 1. Backend Setup (FastAPI)
 
-#### Step A: Open a terminal and navigate to the backend directory
 ```bash
 cd multi-source-reconsilation-razorpay-hack/backend
 ```
 
-#### Step B: Create and activate a Python virtual environment
-- **On Windows (PowerShell / Command Prompt)**:
+**Create and activate a Python virtual environment:**
+- **Windows (PowerShell / CMD)**:
   ```powershell
   python -m venv .venv
   .venv\Scripts\activate
   ```
-- **On macOS / Linux**:
+- **macOS / Linux**:
   ```bash
   python3 -m venv .venv
   source .venv/bin/activate
   ```
 
-#### Step C: Install dependencies
+**Install dependencies:**
 ```bash
 pip install -r requirements.txt
 ```
 
-#### Step D: Configure Environment Variables
-Create or verify the `.env` file in the `backend/` directory:
-```env
-GEMINI_API_KEY=your_google_gemini_api_key_here
-PORT=8000
-```
-> *(Note: If `GEMINI_API_KEY` is not configured or left as a placeholder, the backend returns clear, user-friendly guidance on how to obtain and configure your Gemini API key in `backend/.env` to unlock the AI Copilot features).*
-
-#### Step E: Start the FastAPI backend server
+**Start FastAPI server:**
 ```bash
 uvicorn main:app --reload --port 8000
 ```
 - **API Server**: `http://localhost:8000`
-- **Interactive Swagger Docs**: `http://localhost:8000/docs`
+- **Swagger Docs**: `http://localhost:8000/docs`
 - **Health Check**: `http://localhost:8000/health`
 - **AI Status Check**: `http://localhost:8000/ai/status`
 
@@ -245,37 +296,30 @@ uvicorn main:app --reload --port 8000
 
 ### 2. Frontend Setup (React + Vite)
 
-#### Step A: Open a second terminal and navigate to the frontend directory
+Open a second terminal:
 ```bash
 cd multi-source-reconsilation-razorpay-hack/frontend
-```
-
-#### Step B: Install frontend dependencies
-```bash
 npm install
-```
-
-#### Step C: Start the Vite development server
-```bash
 npm run dev
 ```
-
-#### Step D: Access the Web Application
-Open your browser and navigate to:
-```
-http://localhost:5173/
-```
+Open **`http://localhost:5173/`** in your browser.
 
 ---
 
 ## 🔐 Environment Configuration
 
-Create a `.env` file in the `backend/` folder with the following variables:
+Create a `.env` file inside the `backend/` directory:
+```env
+GEMINI_API_KEY=your_google_gemini_api_key_here
+PORT=8000
+```
 
 | Variable | Required | Description | Default |
 | :--- | :---: | :--- | :--- |
-| `GEMINI_API_KEY` | Recommended | Google Gemini API key for AI Forensic Copilot & Multi-Turn Chat | `""` |
-| `PORT` | Optional | Port for the FastAPI server | `8000` |
+| `GEMINI_API_KEY` | Recommended | Google Gemini API key for AI Forensic Copilot | `""` |
+| `PORT` | Optional | FastAPI server port | `8000` |
+
+*(Note: If `GEMINI_API_KEY` is not provided, the backend returns clear setup guidance in the UI without breaking reconciliation).*
 
 ---
 
@@ -291,10 +335,10 @@ curl -X POST "http://localhost:8000/reconcile" \
 ```
 
 ### 2. `POST /evaluate-benchmark?count=500&seed=42`
-Generates synthetic data with ground-truth labels and returns benchmark metrics (Accuracy, Precision, Recall, F1, and Throughput).
+Generates synthetic financial data with ground-truth labels and returns benchmark metrics including Accuracy, Precision, Recall, F1 Score, and Throughput.
 
 ### 3. `POST /ai/analyze-record`
-Runs a deep forensic investigation on a single transaction record using Gemini AI:
+Runs a forensic investigation on a specific reconciliation case using Gemini AI:
 ```json
 {
   "invoice_id": "INV-1029",
@@ -304,61 +348,67 @@ Runs a deep forensic investigation on a single transaction record using Gemini A
   "customer_name": "Acme Corp Pvt Ltd",
   "reference": "REF-99201",
   "status": "AMOUNT_MISMATCH",
-  "reasons": ["Bank amount ₹48,820 differs from invoice ₹50,000"]
+  "reasons": ["Bank amount differs from invoice amount"]
 }
 ```
 
 ### 4. `POST /ai/chat`
-Enables continuous multi-turn chat with the Gemini Copilot grounded in the specific record context:
+Enables continuous multi-turn investigation with Gemini using the specific record context:
 ```json
 {
-  "record": { ... },
+  "record": { "invoice_id": "INV-1029" },
   "messages": [
     { "role": "user", "content": "Why is the bank amount lower?" }
   ],
-  "user_query": "Is this fee structure standard for Razorpay payments?"
+  "user_query": "What could explain this difference?"
 }
 ```
 
 ### 5. `GET /ai/status`
-Checks if the Google Gemini API key is configured and ready to use.
+Checks whether the Gemini API key configuration is active.
 
 ### 6. `GET /health`
-System operational status and health check.
+Returns system health and operational status.
 
 ---
 
 ## ⚙️ 4-Signal Scoring & Decision Rules
 
-The deterministic matching engine computes a composite score (0–100) using 4 independent signals:
+The deterministic matching engine computes a composite score from 0 to 100 using four independent signals:
 
-| Signal | Max Weight | Evaluation Logic & Criteria |
+| Signal | Max Weight | Evaluation Logic |
 | :--- | :---: | :--- |
-| **Reference Match** | **40 pts** | Exact match on normalized alphanumeric reference string = 40 pts; mismatch/missing = 0 pts |
-| **Amount Match** | **30 pts** | Exact match ($\pm₹0.01$) = 30 pts; $\le 1\%$ variance = 24 pts; $\le 5\%$ variance = 12 pts; $> 5\%$ = 0 pts |
-| **Customer Name** | **20 pts** | $\ge 90\%$ fuzzy similarity = 20 pts; 75–89% = 15 pts; 50–74% = 8 pts; $< 50\%$ = 0 pts |
-| **Date Proximity** | **10 pts** | 0–3 calendar days lag = 10 pts; 4–7 days = 5 pts; 8–14 days = 2 pts; $> 14$ days = 0 pts |
+| **Reference Match** | **40 pts** | Exact normalized alphanumeric reference match |
+| **Amount Match** | **30 pts** | Exact match ($\pm₹0.01$), small variance ($\le 1\%$), or tolerance band ($\le 5\%$) |
+| **Customer Name** | **20 pts** | Fuzzy entity similarity after legal suffix normalization |
+| **Date Proximity** | **10 pts** | Based on transaction and settlement date proximity |
 
 ### Ambiguity Margin Rule:
-If the top candidate score $\ge 70$ but the difference between the top candidate and the second candidate is $< 10$ points, the engine flags the record as **`AMBIGUOUS_MATCH`** to protect against false positives.
+If the top candidate has a sufficiently high score ($\ge 70$) but the difference between the top candidate and the second candidate is below the safety margin ($< 10$ points), the engine flags the record as:
+**`AMBIGUOUS_MATCH`**
+
+This prevents the system from forcing uncertain matches and minimizes false positives.
 
 ---
 
 ## 🚦 Reconciliation Status Taxonomy
 
-- `RECONCILED`: High-confidence match across all 3 streams with consistent amounts.
-- `AMOUNT_MISMATCH`: All 3 records linked, but amounts differ (e.g., MDR fees, tax withholding, partial payments).
-- `MISSING_PAYMENT`: Invoice matched to Bank record, but Gateway payment record is missing.
-- `MISSING_BANK_TRANSACTION`: Invoice matched to Gateway payment, but Bank settlement deposit is pending or missing.
-- `DUPLICATE`: Conflicting records share identical references or (amount + customer + date) signatures.
-- `AMBIGUOUS_MATCH`: Multiple competing candidate matches within the safety threshold.
-- `REVIEW_REQUIRED`: Medium-confidence match requiring manual auditor verification.
-- `UNMATCHED`: No candidate record found across external streams.
+| Status | Meaning |
+| :--- | :--- |
+| **`RECONCILED`** | High-confidence match across all three streams |
+| **`AMOUNT_MISMATCH`** | Records are linked, but amounts differ (e.g., MDR fees, tax withholding) |
+| **`MISSING_PAYMENT`** | Invoice linked to Bank record, but Gateway payment record is missing |
+| **`MISSING_BANK_TRANSACTION`** | Invoice linked to Gateway payment, but Bank settlement is pending/missing |
+| **`DUPLICATE`** | Conflicting duplicate records detected |
+| **`AMBIGUOUS_MATCH`** | Multiple competing candidate matches within the safety threshold |
+| **`REVIEW_REQUIRED`** | Medium-confidence case requiring human auditor verification |
+| **`UNMATCHED`** | No suitable candidate found across external streams |
 
 ---
 
 ## 💡 Demonstration & Testing Tips
 
-1. **One-Click Benchmark**: Click **"Run 500+ Synthetic Benchmark"** in the UI to see the engine process 600+ records in <0.5 seconds with live telemetry.
-2. **Deep Dive into Any Record**: Click on any row in the **Reconciliation Results Table** to open the Tri-Party audit modal.
-3. **Interactive AI Copilot**: In the modal, switch to the **"Investigate with AI"** tab to run Gemini analysis and ask follow-up questions directly in real time.
+1. **Run the Synthetic Benchmark**: Click **"Run 500+ Synthetic Benchmark"** in the UI to generate reproducible synthetic data and evaluate the engine using known ground truth.
+2. **Inspect Reconciliation Results**: Click any transaction in the results table to open the detailed tri-party audit view.
+3. **Investigate Exceptions With AI**: For ambiguous or unresolved cases, open the **"Investigate with AI"** tab to run root-cause diagnosis and ask interactive follow-up questions.
+4. **Test Custom CSV Datasets**: Use the **"Custom CSV Reconcile"** tab with files in `custom_test_datasets/` to test client-side column remapping.
