@@ -1,0 +1,11 @@
+PG_Transaction_ID,Auth_Timestamp,Payer_Company,Captured_Amount_INR,Merchant_Order_Ref,Auth_Status,Payment_Method,Card_Network,Card_Last4,Gateway_Fee_INR,Risk_Score
+pay_gw_99001,2026-08-01 14:32:10,Tata Consultancy Services,125000.00,PO-TCS-88901,captured,netbanking,HDFC Corporate Netbanking,NA,2950.00,0.02
+pay_gw_99002,2026-08-02 16:45:22,Infosys Technologies,85400.00,PO-INFY-77302,captured,credit_card,VISA,4112,2015.44,0.01
+pay_gw_99003,2026-08-03 11:20:05,Reliance Retail Ventures,240000.00,PO-REL-99403,captured,upi,UPI_AUTOPAY,NA,0.00,0.00
+pay_gw_99004,2026-08-04 18:02:44,Wipro Enterprises,64500.00,PO-WIP-55104,captured,corporate_card,MasterCard,8841,1522.20,0.03
+pay_gw_99005,2026-08-05 09:14:30,Zomato Media Pvt Ltd,38200.00,PO-ZOM-33205,captured,credit_card,AMEX,3782,901.52,0.01
+pay_gw_99006,2026-08-06 20:10:19,Flipkart Internet,195000.00,PO-FLIP-66106,captured,netbanking,ICICI Corporate,NA,4602.00,0.02
+pay_gw_99007,2026-08-07 15:55:00,Swiggy Bundl,47800.00,PO-SWG-44507,captured,credit_card,VISA,5523,1128.08,0.01
+pay_gw_99008,2026-08-08 17:30:12,Paytm One97,112000.00,PO-PAY-88208,captured,netbanking,Axis Bank,NA,2643.20,0.02
+pay_gw_99009,2026-08-09 12:40:50,HDFC Securities,72300.00,PO-HDFC-11209,captured,upi,UPI_FAST,NA,0.00,0.00
+pay_gw_99010,2026-08-10 19:15:33,Nykaa E-Retail,56400.00,PO-NYK-22310,captured,credit_card,MasterCard,9012,1331.04,0.01
